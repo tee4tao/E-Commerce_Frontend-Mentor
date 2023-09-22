@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaBars, FaAngleRight, FaAngleLeft } from "react-icons/fa";
 import { BsCart3 } from "react-icons/bs";
 import logo from "../src/images/logo.svg";
@@ -14,12 +14,38 @@ import product4_thumbnail from "../src/images/image-product-4-thumbnail.jpg";
 
 function App() {
   const [count, setCount] = useState(0);
-  const Arr = [product1, product2, product3, product4];
-  // console.log(Arr);
-  Arr.map((img) => {
-    console.log(img);
-  });
-
+  const [img, setImg] = useState("");
+  // const Arr = [product1, product2, product3, product4];
+  // // console.log(Arr);
+  // Arr.map((img) => {
+  //   console.log(img);
+  // });
+  useEffect(() => {
+    // const imgThumbnail = document.querySelectorAll(`.img-thumbnail`);
+    // // console.log(imgThumbnail);
+    // imgThumbnail.forEach((img) => {
+    //   img.addEventListener(`click`, () => {
+    //     setImg(img.src);
+    //   });
+    // });
+    const thumbnail1 = document.querySelector(`#thumbnail1`);
+    thumbnail1.addEventListener(`click`, () => {
+      setImg(product1);
+    });
+    const thumbnail2 = document.querySelector(`#thumbnail2`);
+    thumbnail2.addEventListener(`click`, () => {
+      setImg(product2);
+    });
+    const thumbnail3 = document.querySelector(`#thumbnail3`);
+    thumbnail3.addEventListener(`click`, () => {
+      setImg(product3);
+    });
+    const thumbnail4 = document.querySelector(`#thumbnail4`);
+    thumbnail4.addEventListener(`click`, () => {
+      setImg(product4);
+    });
+  }, [img]);
+  console.log(img);
   return (
     <main>
       <nav className=" flex flex-col items-center md:mb-20">
@@ -58,6 +84,7 @@ function App() {
       </nav>
       <section className="hero flex justify-center">
         <div className="hero-container flex flex-col md:flex-row md:items-center max-w-full md:w-3/4 xl:w-3/5 md:justify-around md:space-x-10 md:px-8">
+          {img && <img src={img} alt="" />}
           <div className="flex flex-col  md:w-5/12">
             <div className="img-container overflow-hidden relative">
               <img
@@ -76,22 +103,26 @@ function App() {
               <img
                 src={product1_thumbnail}
                 alt=""
-                className="cursor-pointer w-1/5 rounded-2xl"
+                id="thumbnail1"
+                className="img-thumbnail cursor-pointer w-1/5 rounded-2xl"
               />
               <img
                 src={product2_thumbnail}
                 alt=""
-                className="cursor-pointer w-1/5 rounded-2xl"
+                id="thumbnail2"
+                className="img-thumbnail cursor-pointer w-1/5 rounded-2xl"
               />
               <img
                 src={product3_thumbnail}
                 alt=""
-                className="cursor-pointer w-1/5 rounded-2xl"
+                id="thumbnail3"
+                className="img-thumbnail cursor-pointer w-1/5 rounded-2xl"
               />
               <img
                 src={product4_thumbnail}
                 alt=""
-                className="cursor-pointer w-1/5 rounded-2xl"
+                id="thumbnail4"
+                className="img-thumbnail cursor-pointer w-1/5 rounded-2xl"
               />
             </div>
           </div>
