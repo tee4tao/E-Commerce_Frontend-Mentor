@@ -4,3 +4,17 @@
 .underline {
   height: 1px;
 }
+/* .modal-container {
+  opacity: 0;
+} */
+.show-modal {
+  visibility: visible;
+  opacity: 1;
+  transition-property: opacity;
+  transition-duration: 2s;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.overlay-img {
+  max-height: 803.49px;
+  object-fit: cover;
+}

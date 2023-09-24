@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaBars, FaAngleRight, FaAngleLeft } from "react-icons/fa";
+import { FaBars, FaAngleRight, FaAngleLeft, FaTimes } from "react-icons/fa";
 import { BsCart3 } from "react-icons/bs";
 import logo from "../src/images/logo.svg";
 import avatar from "../src/images/image-avatar.png";
@@ -15,6 +15,7 @@ import product4_thumbnail from "../src/images/image-product-4-thumbnail.jpg";
 function App() {
   const [count, setCount] = useState(0);
   const [img, setImg] = useState("");
+  const [openModal, setOpenModal] = useState(false);
   // const Arr = [product1, product2, product3, product4];
   // // console.log(Arr);
   // Arr.map((img) => {
@@ -28,22 +29,53 @@ function App() {
     //     setImg(img.src);
     //   });
     // });
-    const thumbnail1 = document.querySelector(`#thumbnail1`);
-    thumbnail1.addEventListener(`click`, () => {
-      setImg(product1);
+    const thumbnail1 = document.querySelectorAll(`.thumbnail1`);
+    thumbnail1.forEach((img) => {
+      img.addEventListener(`click`, () => {
+        setImg(product1);
+        setOpenModal(true);
+      });
     });
-    const thumbnail2 = document.querySelector(`#thumbnail2`);
-    thumbnail2.addEventListener(`click`, () => {
-      setImg(product2);
+    // thumbnail1.addEventListener(`click`, () => {
+    //   setImg(product1);
+    //   setOpenModal(true);
+    // });
+    const thumbnail2 = document.querySelectorAll(`.thumbnail2`);
+    thumbnail2.forEach((img) => {
+      img.addEventListener(`click`, () => {
+        setImg(product2);
+        setOpenModal(true);
+      });
     });
-    const thumbnail3 = document.querySelector(`#thumbnail3`);
-    thumbnail3.addEventListener(`click`, () => {
-      setImg(product3);
+    // const thumbnail2 = document.querySelector(`#thumbnail2`);
+    // thumbnail2.addEventListener(`click`, () => {
+    //   setImg(product2);
+    //   setOpenModal(true);
+    // });
+    const thumbnail3 = document.querySelectorAll(`.thumbnail3`);
+    thumbnail3.forEach((img) => {
+      img.addEventListener(`click`, () => {
+        setImg(product3);
+        setOpenModal(true);
+      });
     });
-    const thumbnail4 = document.querySelector(`#thumbnail4`);
-    thumbnail4.addEventListener(`click`, () => {
-      setImg(product4);
+    // const thumbnail3 = document.querySelector(`#thumbnail3`);
+    // thumbnail3.addEventListener(`click`, () => {
+    //   setImg(product3);
+    //   setOpenModal(true);
+    // });
+    const thumbnail4 = document.querySelectorAll(`.thumbnail4`);
+    thumbnail4.forEach((img) => {
+      img.addEventListener(`click`, () => {
+        setImg(product4);
+        setOpenModal(true);
+      });
     });
+    // const thumbnail4 = document.querySelector(`#thumbnail4`);
+    // thumbnail4.addEventListener(`click`, () => {
+    //   setImg(product4);
+    //   setOpenModal(true);
+    // });
   }, [img]);
   console.log(img);
   return (
@@ -84,7 +116,7 @@ function App() {
       </nav>
       <section className="hero flex justify-center">
         <div className="hero-container flex flex-col md:flex-row md:items-center max-w-full md:w-3/4 xl:w-3/5 md:justify-around md:space-x-10 md:px-8">
-          {img && <img src={img} alt="" />}
+          {/* {img && <img src={img} alt="" />} */}
           <div className="flex flex-col  md:w-5/12">
             <div className="img-container overflow-hidden relative">
               <img
@@ -103,26 +135,26 @@ function App() {
               <img
                 src={product1_thumbnail}
                 alt=""
-                id="thumbnail1"
-                className="img-thumbnail cursor-pointer w-1/5 rounded-2xl"
+                // id="thumbnail1"
+                className="img-thumbnail thumbnail1 cursor-pointer w-1/5 rounded-2xl"
               />
               <img
                 src={product2_thumbnail}
                 alt=""
-                id="thumbnail2"
-                className="img-thumbnail cursor-pointer w-1/5 rounded-2xl"
+                // id="thumbnail2"
+                className="img-thumbnail thumbnail2 cursor-pointer w-1/5 rounded-2xl"
               />
               <img
                 src={product3_thumbnail}
                 alt=""
-                id="thumbnail3"
-                className="img-thumbnail cursor-pointer w-1/5 rounded-2xl"
+                // id="thumbnail3"
+                className="img-thumbnail thumbnail3 cursor-pointer w-1/5 rounded-2xl"
               />
               <img
                 src={product4_thumbnail}
                 alt=""
-                id="thumbnail4"
-                className="img-thumbnail cursor-pointer w-1/5 rounded-2xl"
+                // id="thumbnail4"
+                className="img-thumbnail thumbnail4 cursor-pointer w-1/5 rounded-2xl"
               />
             </div>
           </div>
@@ -141,6 +173,62 @@ function App() {
                 voluptatum dolores dolorem quidem voluptas explicabo!
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        className={
+          openModal
+            ? ` show-modal hidden md:grid place-items-center fixed top-0 w-full h-full transition-opacity duration-1000 opacity-100`
+            : `opacity-0 hidden transition-opacity duration-1000`
+        }
+      >
+        <div className="flex flex-col  md:w-5/12 relative">
+          <button
+            className="text-white text-3xl absolute bottom-full right-0"
+            onClick={() => setOpenModal(false)}
+          >
+            <FaTimes />
+          </button>
+          <div className="img-container overflow-hidden">
+            <img
+              src={img}
+              alt=""
+              className="product-img overlay-img object-cover md:rounded-2xl w-full"
+            />
+            <button className="md:hidden">
+              <FaAngleLeft className="absolute top-1/2 left-4 bg-white rounded-full text-3xl" />
+            </button>
+            <button className="md:hidden">
+              <FaAngleRight className="absolute top-1/2 right-4 bg-white rounded-full text-3xl" />
+            </button>
+          </div>
+          <div className="product-img_thumbnail hidden mt-4 overflow-hidden max-w-full md:flex space-x-5 justify-around">
+            <img
+              src={product1_thumbnail}
+              alt=""
+              // id="thumbnail1"
+              className="img-thumbnail thumbnail1 cursor-pointer w-1/5 rounded-2xl"
+            />
+            <img
+              src={product2_thumbnail}
+              alt=""
+              // id="thumbnail2"
+              className="img-thumbnail thumbnail2 cursor-pointer w-1/5 rounded-2xl"
+            />
+            <img
+              src={product3_thumbnail}
+              alt=""
+              // id="thumbnail3"
+              className="img-thumbnail thumbnail3 cursor-pointer w-1/5 rounded-2xl"
+            />
+            <img
+              src={product4_thumbnail}
+              alt=""
+              // id="thumbnail4"
+              className="img-thumbnail thumbnail4 cursor-pointer w-1/5 rounded-2xl"
+            />
           </div>
         </div>
       </section>
