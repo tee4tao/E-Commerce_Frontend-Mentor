@@ -13,22 +13,29 @@ import product4 from "../src/images/image-product-4.jpg";
 import product4_thumbnail from "../src/images/image-product-4-thumbnail.jpg";
 
 function App() {
-  const [count, setCount] = useState(0);
+  let [count, setCount] = useState(0);
   const [img, setImg] = useState("");
   const [openModal, setOpenModal] = useState(false);
-  // const Arr = [product1, product2, product3, product4];
-  // // console.log(Arr);
+  const Arr = [product1, product2, product3, product4];
+  // console.log(Arr);
   // Arr.map((img) => {
   //   console.log(img);
   // });
+  const nextClick = () => {
+    count++;
+    setCount(count);
+    if (count == Arr.length) {
+      setCount(0);
+    }
+  };
+  const prevClick = () => {
+    count--;
+    setCount(count);
+    if (count < 0) {
+      setCount(Arr.length - 1);
+    }
+  };
   useEffect(() => {
-    // const imgThumbnail = document.querySelectorAll(`.img-thumbnail`);
-    // // console.log(imgThumbnail);
-    // imgThumbnail.forEach((img) => {
-    //   img.addEventListener(`click`, () => {
-    //     setImg(img.src);
-    //   });
-    // });
     const thumbnail1 = document.querySelectorAll(`.thumbnail1`);
     thumbnail1.forEach((img) => {
       img.addEventListener(`click`, () => {
@@ -36,10 +43,6 @@ function App() {
         setOpenModal(true);
       });
     });
-    // thumbnail1.addEventListener(`click`, () => {
-    //   setImg(product1);
-    //   setOpenModal(true);
-    // });
     const thumbnail2 = document.querySelectorAll(`.thumbnail2`);
     thumbnail2.forEach((img) => {
       img.addEventListener(`click`, () => {
@@ -47,11 +50,6 @@ function App() {
         setOpenModal(true);
       });
     });
-    // const thumbnail2 = document.querySelector(`#thumbnail2`);
-    // thumbnail2.addEventListener(`click`, () => {
-    //   setImg(product2);
-    //   setOpenModal(true);
-    // });
     const thumbnail3 = document.querySelectorAll(`.thumbnail3`);
     thumbnail3.forEach((img) => {
       img.addEventListener(`click`, () => {
@@ -59,11 +57,7 @@ function App() {
         setOpenModal(true);
       });
     });
-    // const thumbnail3 = document.querySelector(`#thumbnail3`);
-    // thumbnail3.addEventListener(`click`, () => {
-    //   setImg(product3);
-    //   setOpenModal(true);
-    // });
+
     const thumbnail4 = document.querySelectorAll(`.thumbnail4`);
     thumbnail4.forEach((img) => {
       img.addEventListener(`click`, () => {
@@ -71,13 +65,7 @@ function App() {
         setOpenModal(true);
       });
     });
-    // const thumbnail4 = document.querySelector(`#thumbnail4`);
-    // thumbnail4.addEventListener(`click`, () => {
-    //   setImg(product4);
-    //   setOpenModal(true);
-    // });
   }, [img]);
-  console.log(img);
   return (
     <main>
       <nav className=" flex flex-col items-center md:mb-20">
@@ -122,12 +110,25 @@ function App() {
               <img
                 src={product1}
                 alt=""
-                className="product-img object-cover w-full h-full md:rounded-2xl"
+                className="hidden md:block product-img object-cover w-full h-full md:rounded-2xl"
               />
-              <button className="md:hidden">
+              <img
+                src={Arr[count]}
+                alt=""
+                className="product-img object-cover w-full h-full md:hidden md:rounded-2xl"
+              />
+              ;
+              {/* {Arr.map((img) => {
+                <img
+                  src={img[count]}
+                  alt=""
+                  className="product-img object-cover w-full h-full md:hidden md:rounded-2xl"
+                />;
+              })} */}
+              <button className="md:hidden" onClick={prevClick}>
                 <FaAngleLeft className="absolute top-1/2 left-4 bg-white rounded-full text-3xl" />
               </button>
-              <button className="md:hidden">
+              <button className="md:hidden" onClick={nextClick}>
                 <FaAngleRight className="absolute top-1/2 right-4 bg-white rounded-full text-3xl" />
               </button>
             </div>
@@ -159,7 +160,7 @@ function App() {
             </div>
           </div>
 
-          <div className="product-info flex justify-center mt-4 md:w-1/2">
+          <div className="product-info flex flex-col justify-center mx-4 md:mx-0 mt-4 md:w-1/2">
             <div className="info-container w-11/12  space-y-3 md:flex md:flex-col md:space-y-7">
               <h3 className="product-company uppercase font-bold text-Orange">
                 sneaker company
@@ -172,6 +173,17 @@ function App() {
                 Obcaecati est temporibus dolorem eligendi? Vero soluta
                 voluptatum dolores dolorem quidem voluptas explicabo!
               </p>
+            </div>
+            <div className="product-price_info flex flex-row w-11/12 justify-between items-center md:items-start mt-8  md:flex-col md:space-y-1">
+              <div className="flex items-center space-x-4">
+                <h2 className="discounted-price text-3xl font-bold">$125.00</h2>
+                <div className="dicounted-percent bg-Pale-orange text-Orange p-1 rounded text-lg font-semibold">
+                  50%
+                </div>
+              </div>
+              <div className="actual-price text-Dark-grayish-blue text-lg font-semibold line-through">
+                $250.00
+              </div>
             </div>
           </div>
         </div>
