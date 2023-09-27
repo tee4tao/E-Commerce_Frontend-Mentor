@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { FaBars, FaAngleRight, FaAngleLeft, FaTimes } from "react-icons/fa";
+import {
+  FaBars,
+  FaAngleRight,
+  FaAngleLeft,
+  FaTimes,
+  FaPlus,
+  FaMinus,
+} from "react-icons/fa";
 import { BsCart3 } from "react-icons/bs";
 import logo from "../src/images/logo.svg";
 import avatar from "../src/images/image-avatar.png";
@@ -14,6 +21,8 @@ import product4_thumbnail from "../src/images/image-product-4-thumbnail.jpg";
 
 function App() {
   let [count, setCount] = useState(0);
+  let [modalCount, setModalCount] = useState(0);
+  let [productQuantity, setProductQuantity] = useState(0);
   const [img, setImg] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const Arr = [product1, product2, product3, product4];
@@ -35,37 +44,55 @@ function App() {
       setCount(Arr.length - 1);
     }
   };
-  useEffect(() => {
-    const thumbnail1 = document.querySelectorAll(`.thumbnail1`);
-    thumbnail1.forEach((img) => {
-      img.addEventListener(`click`, () => {
-        setImg(product1);
-        setOpenModal(true);
-      });
-    });
-    const thumbnail2 = document.querySelectorAll(`.thumbnail2`);
-    thumbnail2.forEach((img) => {
-      img.addEventListener(`click`, () => {
-        setImg(product2);
-        setOpenModal(true);
-      });
-    });
-    const thumbnail3 = document.querySelectorAll(`.thumbnail3`);
-    thumbnail3.forEach((img) => {
-      img.addEventListener(`click`, () => {
-        setImg(product3);
-        setOpenModal(true);
-      });
-    });
+  const modalNextClick = () => {
+    modalCount++;
+    setModalCount(modalCount);
+    if (modalCount == Arr.length) {
+      setModalCount(0);
+    }
+  };
+  const modalPrevClick = () => {
+    modalCount--;
+    setModalCount(modalCount);
+    if (modalCount < 0) {
+      setModalCount(Arr.length - 1);
+    }
+  };
+  const decreaseQuantity = () => {
+    setProductQuantity(productQuantity - 1);
+    if (productQuantity < 1) {
+      setProductQuantity(0);
+    }
+  };
 
-    const thumbnail4 = document.querySelectorAll(`.thumbnail4`);
-    thumbnail4.forEach((img) => {
-      img.addEventListener(`click`, () => {
-        setImg(product4);
-        setOpenModal(true);
-      });
-    });
-  }, [img]);
+  let thumbnail1 = () => {
+    setModalCount(0);
+    console.log(modalCount);
+    console.log(`thumbnail1`);
+    // setImg(Arr[modalCount]);
+    setOpenModal(true);
+  };
+  let thumbnail2 = () => {
+    setModalCount(1);
+    console.log(modalCount);
+    console.log(`thumbnail2`);
+    // setImg(Arr[modalCount]);
+    setOpenModal(true);
+  };
+  let thumbnail3 = () => {
+    setModalCount(2);
+    console.log(modalCount);
+    console.log(`thumbnail3`);
+    // setImg(Arr[modalCount]);
+    setOpenModal(true);
+  };
+  let thumbnail4 = () => {
+    setModalCount(3);
+    console.log(modalCount);
+    console.log(`thumbnail4`);
+    // setImg(Arr[modalCount]);
+    setOpenModal(true);
+  };
   return (
     <main>
       <nav className=" flex flex-col items-center md:mb-20">
@@ -96,7 +123,12 @@ function App() {
             </div>
           </div>
           <div className="flex space-x-3 lg:space-x-6 items-center">
-            <BsCart3 className="text-3xl" />
+            <button className="relative">
+              <BsCart3 className="text-3xl text-Dark-grayish-blue" />
+              <div className="absolute -top-4 -right-2 bg-Orange rounded-full w-7 h-7 text-White">
+                {productQuantity}
+              </div>
+            </button>
             <img src={avatar} alt="user-img" className="user-avatar h-8" />
           </div>
         </div>
@@ -138,24 +170,28 @@ function App() {
                 alt=""
                 // id="thumbnail1"
                 className="img-thumbnail thumbnail1 cursor-pointer w-1/5 rounded-2xl"
+                onClick={thumbnail1}
               />
               <img
                 src={product2_thumbnail}
                 alt=""
                 // id="thumbnail2"
                 className="img-thumbnail thumbnail2 cursor-pointer w-1/5 rounded-2xl"
+                onClick={thumbnail2}
               />
               <img
                 src={product3_thumbnail}
                 alt=""
                 // id="thumbnail3"
                 className="img-thumbnail thumbnail3 cursor-pointer w-1/5 rounded-2xl"
+                onClick={thumbnail3}
               />
               <img
                 src={product4_thumbnail}
                 alt=""
                 // id="thumbnail4"
                 className="img-thumbnail thumbnail4 cursor-pointer w-1/5 rounded-2xl"
+                onClick={thumbnail4}
               />
             </div>
           </div>
@@ -185,6 +221,26 @@ function App() {
                 $250.00
               </div>
             </div>
+            <div className="cart-quantity_container w-11/12 flex flex-col items-center md:flex-row mt-4 md:space-x-2">
+              <div className="quantity-container w-3/4 h-12 p-2 rounded-lg flex justify-between bg-Light-grayish-blue mb-2 md:w-2/5">
+                <button
+                  className="decrease-quantity text-Orange"
+                  onClick={decreaseQuantity}
+                >
+                  <FaMinus />
+                </button>
+                <div className="text-2xl">{productQuantity}</div>
+                <button
+                  className="increase-quantity text-Orange"
+                  onClick={() => setProductQuantity(productQuantity + 1)}
+                >
+                  <FaPlus />
+                </button>
+              </div>
+              <button className="AddToCart-container w-3/4 h-12 p-2 rounded-lg flex justify-center items-center space-x-5 bg-Orange mb-2 md:w-6/12 text-White text-xl">
+                <BsCart3 /> <div>Add to cart</div>
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -203,17 +259,17 @@ function App() {
           >
             <FaTimes />
           </button>
-          <div className="img-container overflow-hidden">
+          <div className="img-container relative">
             <img
-              src={img}
+              src={Arr[modalCount]}
               alt=""
               className="product-img overlay-img object-cover md:rounded-2xl w-full"
             />
-            <button className="md:hidden">
-              <FaAngleLeft className="absolute top-1/2 left-4 bg-white rounded-full text-3xl" />
+            <button onClick={modalPrevClick}>
+              <FaAngleLeft className="absolute top-1/2 -left-8 bg-white rounded-full text-3xl" />
             </button>
-            <button className="md:hidden">
-              <FaAngleRight className="absolute top-1/2 right-4 bg-white rounded-full text-3xl" />
+            <button onClick={modalNextClick}>
+              <FaAngleRight className="absolute top-1/2 -right-8 bg-white rounded-full text-3xl" />
             </button>
           </div>
           <div className="product-img_thumbnail hidden mt-4 overflow-hidden max-w-full md:flex space-x-5 justify-around">
@@ -222,24 +278,28 @@ function App() {
               alt=""
               // id="thumbnail1"
               className="img-thumbnail thumbnail1 cursor-pointer w-1/5 rounded-2xl"
+              onClick={thumbnail1}
             />
             <img
               src={product2_thumbnail}
               alt=""
               // id="thumbnail2"
               className="img-thumbnail thumbnail2 cursor-pointer w-1/5 rounded-2xl"
+              onClick={thumbnail2}
             />
             <img
               src={product3_thumbnail}
               alt=""
               // id="thumbnail3"
               className="img-thumbnail thumbnail3 cursor-pointer w-1/5 rounded-2xl"
+              onClick={thumbnail3}
             />
             <img
               src={product4_thumbnail}
               alt=""
               // id="thumbnail4"
               className="img-thumbnail thumbnail4 cursor-pointer w-1/5 rounded-2xl"
+              onClick={thumbnail4}
             />
           </div>
         </div>
