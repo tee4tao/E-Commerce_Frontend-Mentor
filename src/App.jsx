@@ -23,8 +23,10 @@ function App() {
   let [count, setCount] = useState(0);
   let [modalCount, setModalCount] = useState(0);
   let [productQuantity, setProductQuantity] = useState(0);
+  let [cartQuantity, setCartQuantity] = useState("");
   const [img, setImg] = useState("");
   const [openModal, setOpenModal] = useState(false);
+  let [showCart, setShowCart] = useState(false);
   const Arr = [product1, product2, product3, product4];
   // console.log(Arr);
   // Arr.map((img) => {
@@ -123,11 +125,13 @@ function App() {
             </div>
           </div>
           <div className="flex space-x-3 lg:space-x-6 items-center">
-            <button className="relative">
+            <button className="relative" onClick={() => setShowCart(!showCart)}>
               <BsCart3 className="text-3xl text-Dark-grayish-blue" />
-              <div className="absolute -top-4 -right-2 bg-Orange rounded-full w-7 h-7 text-White">
-                {productQuantity}
-              </div>
+              {cartQuantity > 0 && (
+                <div className="absolute -top-4 -right-2 bg-Orange rounded-full w-7 h-7 text-White">
+                  {cartQuantity}
+                </div>
+              )}
             </button>
             <img src={avatar} alt="user-img" className="user-avatar h-8" />
           </div>
@@ -138,7 +142,7 @@ function App() {
         <div className="hero-container flex flex-col md:flex-row md:items-center max-w-full md:w-3/4 xl:w-3/5 md:justify-around md:space-x-10 md:px-8">
           {/* {img && <img src={img} alt="" />} */}
           <div className="flex flex-col  md:w-5/12">
-            <div className="img-container overflow-hidden relative">
+            <div className="img-container relative flex justify-center">
               <img
                 src={product1}
                 alt=""
@@ -149,7 +153,18 @@ function App() {
                 alt=""
                 className="product-img object-cover w-full h-full md:hidden md:rounded-2xl"
               />
-              ;
+              {showCart && (
+                <div className="cart-items absolute top-8 h-4/5 w-4/5 bg-White md:hidden rounded-2xl flex flex-col">
+                  <h3 className="text-2xl ml-8 mt-8 mb-8 font-bold">Cart</h3>
+                  <div className="underline md:block bg-Grayish-blue  md:max-w-full"></div>
+                  {(cartQuantity === 0 || !cartQuantity) && (
+                    <div className="empty-text text-2xl font-semibold self-center justify-self-center">
+                      Your cart is empty
+                    </div>
+                  )}
+                </div>
+              )}
+
               {/* {Arr.map((img) => {
                 <img
                   src={img[count]}
@@ -237,7 +252,10 @@ function App() {
                   <FaPlus />
                 </button>
               </div>
-              <button className="AddToCart-container w-3/4 h-12 p-2 rounded-lg flex justify-center items-center space-x-5 bg-Orange mb-2 md:w-6/12 text-White text-xl">
+              <button
+                className="AddToCart-container w-3/4 h-12 p-2 rounded-lg flex justify-center items-center space-x-5 bg-Orange mb-2 md:w-6/12 text-White text-xl"
+                onClick={() => setCartQuantity(productQuantity)}
+              >
                 <BsCart3 /> <div>Add to cart</div>
               </button>
             </div>
