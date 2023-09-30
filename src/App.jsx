@@ -6,6 +6,7 @@ import {
   FaTimes,
   FaPlus,
   FaMinus,
+  FaTrashAlt,
 } from "react-icons/fa";
 import { BsCart3 } from "react-icons/bs";
 import logo from "../src/images/logo.svg";
@@ -27,6 +28,7 @@ function App() {
   const [img, setImg] = useState("");
   const [openModal, setOpenModal] = useState(false);
   let [showCart, setShowCart] = useState(false);
+  let [showSide, setShowSide] = useState(false);
   const Arr = [product1, product2, product3, product4];
   // console.log(Arr);
   // Arr.map((img) => {
@@ -98,9 +100,12 @@ function App() {
   return (
     <main>
       <nav className=" flex flex-col items-center md:mb-20">
-        <div className="container flex justify-around items-center h-20 max-w-full md:w-3/4 xl:w-3/5 md:justify-between md:mt-4 md:mb-6">
+        <div className="container relative flex justify-around items-center h-20 max-w-full md:w-3/4 xl:w-3/5 md:justify-between md:mt-4 md:mb-6">
           <div className="flex space-x-4 items-center">
-            <button className="toggle-btn md:hidden">
+            <button
+              className="toggle-btn md:hidden"
+              onClick={() => setShowSide(true)}
+            >
               <FaBars className="text-2xl" />
             </button>
             <div className="flex md:space-x-3 lg:space-x-6 items-center xl:space-x-28">
@@ -135,12 +140,84 @@ function App() {
             </button>
             <img src={avatar} alt="user-img" className="user-avatar h-8" />
           </div>
+          {/* cart item for desktop view */}
+          {showCart && (
+            <div className="cart-items hidden absolute top-16 right-0 z-10 w-96 h-80 bg-Light-grayish-blue md:flex rounded-2xl flex-col self-end shadow-lg">
+              <h3 className="text-2xl ml-8 mt-8 mb-8 font-bold">Cart</h3>
+              <div className="underline md:block bg-Grayish-blue  md:max-w-full"></div>
+              {(cartQuantity === 0 || !cartQuantity) && (
+                <div className="empty-text text-2xl font-semibold self-center justify-self-center">
+                  Your cart is empty
+                </div>
+              )}
+              {cartQuantity > 0 && (
+                <div className="w-full m-auto">
+                  <div className="flex w-full justify-around space-x-1 items-center">
+                    <img
+                      src={product1_thumbnail}
+                      alt=""
+                      className="w-24 rounded-2xl"
+                    />
+                    <div className="flex flex-col">
+                      <div className=" capitalize text-2xl text-Grayish-blue">
+                        fall limited edition sneakers
+                      </div>
+                      <div className="text-xl text-Grayish-blue">
+                        $125.00 x {cartQuantity}{" "}
+                        <span className="font-semibold text-Black">
+                          ${(125 * cartQuantity).toFixed(2)}
+                        </span>
+                      </div>
+                    </div>
+                    <button onClick={() => setCartQuantity(0)}>
+                      <FaTrashAlt className="text-2xl text-Grayish-blue" />
+                    </button>
+                  </div>
+                  <button className="mt-4 block mx-auto bg-Orange text-White w-3/4 h-12 p-1 rounded-lg">
+                    Checkout
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
         <div className="underline hidden md:block bg-Grayish-blue text-red-400 md:max-w-full md:w-3/4 xl:w-3/5"></div>
       </nav>
+      {/* aside */}
+      <aside
+        className={
+          showSide
+            ? `sidebar-container fixed top-0 left-0 max-w-full w-full h-full transition-all ease-linear duration-300  z-30 md:hidden overflow-hidden`
+            : `w-0 h-0 overflow-hidden transition-all ease-linear duration-300`
+        }
+      >
+        <div className="w-1/2 h-full bg-White relative">
+          <button onClick={() => setShowSide(false)}>
+            <FaTimes className="absolute left-8 text-2xl text-Grayish-blue hover:text-Black transition-all ease-linear duration-300" />
+          </button>
+          <ul className="sidebar-links mt-16 ml-8 space-y-4">
+            <li className="link capitalize text-xl font-semibold">
+              <a href="#">collections</a>
+            </li>
+            <li className="link capitalize text-xl font-semibold">
+              <a href="#">men</a>
+            </li>
+            <li className="link capitalize text-xl font-semibold">
+              <a href="#">women</a>
+            </li>
+            <li className="link capitalize text-xl font-semibold">
+              <a href="#">about</a>
+            </li>
+            <li className="link capitalize text-xl font-semibold">
+              <a href="#">contact</a>
+            </li>
+          </ul>
+        </div>
+      </aside>
       <section className="hero flex justify-center">
         <div className="hero-container flex flex-col md:flex-row md:items-center max-w-full md:w-3/4 xl:w-3/5 md:justify-around md:space-x-10 md:px-8">
           {/* {img && <img src={img} alt="" />} */}
+
           <div className="flex flex-col  md:w-5/12">
             <div className="img-container relative flex justify-center">
               <img
@@ -153,8 +230,9 @@ function App() {
                 alt=""
                 className="product-img object-cover w-full h-full md:hidden md:rounded-2xl"
               />
+              {/* cart item for mobile view */}
               {showCart && (
-                <div className="cart-items absolute top-8 h-4/5 w-4/5 bg-White md:hidden rounded-2xl flex flex-col">
+                <div className="cart-items absolute top-8 h-4/5 w-4/5 bg-White md:hidden rounded-2xl flex flex-col shadow-lg">
                   <h3 className="text-2xl ml-8 mt-8 mb-8 font-bold">Cart</h3>
                   <div className="underline md:block bg-Grayish-blue  md:max-w-full"></div>
                   {(cartQuantity === 0 || !cartQuantity) && (
@@ -162,9 +240,36 @@ function App() {
                       Your cart is empty
                     </div>
                   )}
+                  {cartQuantity > 0 && (
+                    <div className="w-full m-auto">
+                      <div className="flex w-full justify-around space-x-1 items-center">
+                        <img
+                          src={product1_thumbnail}
+                          alt=""
+                          className="w-24 rounded-2xl"
+                        />
+                        <div className="flex flex-col">
+                          <div className=" capitalize text-2xl text-Grayish-blue">
+                            fall limited edition sneakers
+                          </div>
+                          <div className="text-xl text-Grayish-blue">
+                            $125.00 x {cartQuantity}{" "}
+                            <span className="font-semibold text-Black">
+                              ${(125 * cartQuantity).toFixed(2)}
+                            </span>
+                          </div>
+                        </div>
+                        <button onClick={() => setCartQuantity(0)}>
+                          <FaTrashAlt className="text-2xl text-Grayish-blue" />
+                        </button>
+                      </div>
+                      <button className="mt-4 block mx-auto bg-Orange text-White w-3/4 h-12 p-1 rounded-lg">
+                        Checkout
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
-
               {/* {Arr.map((img) => {
                 <img
                   src={img[count]}
@@ -172,12 +277,17 @@ function App() {
                   className="product-img object-cover w-full h-full md:hidden md:rounded-2xl"
                 />;
               })} */}
-              <button className="md:hidden" onClick={prevClick}>
-                <FaAngleLeft className="absolute top-1/2 left-4 bg-white rounded-full text-3xl" />
-              </button>
-              <button className="md:hidden" onClick={nextClick}>
-                <FaAngleRight className="absolute top-1/2 right-4 bg-white rounded-full text-3xl" />
-              </button>
+              {!showCart && (
+                <button className="md:hidden" onClick={prevClick}>
+                  <FaAngleLeft className="absolute top-1/2 left-4 bg-white rounded-full text-3xl" />
+                </button>
+              )}
+              {/*only display the nav-btn when the cart items is not displayed*/}
+              {!showCart && (
+                <button className="md:hidden" onClick={nextClick}>
+                  <FaAngleRight className="absolute top-1/2 right-4 bg-white rounded-full text-3xl" />
+                </button>
+              )}
             </div>
             <div className="product-img_thumbnail hidden mt-4 overflow-hidden max-w-full md:flex space-x-5 justify-around">
               <img
@@ -265,9 +375,7 @@ function App() {
 
       <section
         className={
-          openModal
-            ? ` show-modal hidden md:grid place-items-center fixed top-0 w-full h-full transition-opacity duration-1000 opacity-100`
-            : `opacity-0 hidden transition-opacity duration-1000`
+          openModal ? ` show-modal modal-container` : `modal-container`
         }
       >
         <div className="flex flex-col  md:w-5/12 relative">
