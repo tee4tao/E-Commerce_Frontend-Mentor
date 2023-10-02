@@ -72,28 +72,28 @@ function App() {
   let thumbnail1 = () => {
     setModalCount(0);
     console.log(modalCount);
-    console.log(`thumbnail1`);
+    // console.log(`thumbnail1`);
     // setImg(Arr[modalCount]);
     setOpenModal(true);
   };
   let thumbnail2 = () => {
     setModalCount(1);
     console.log(modalCount);
-    console.log(`thumbnail2`);
+    // console.log(`thumbnail2`);
     // setImg(Arr[modalCount]);
     setOpenModal(true);
   };
   let thumbnail3 = () => {
     setModalCount(2);
     console.log(modalCount);
-    console.log(`thumbnail3`);
+    // console.log(`thumbnail3`);
     // setImg(Arr[modalCount]);
     setOpenModal(true);
   };
   let thumbnail4 = () => {
     setModalCount(3);
     console.log(modalCount);
-    console.log(`thumbnail4`);
+    // console.log(`thumbnail4`);
     // setImg(Arr[modalCount]);
     setOpenModal(true);
   };
@@ -131,14 +131,24 @@ function App() {
           </div>
           <div className="flex space-x-3 lg:space-x-6 items-center">
             <button className="relative" onClick={() => setShowCart(!showCart)}>
-              <BsCart3 className="text-3xl text-Dark-grayish-blue" />
+              <BsCart3
+                className={
+                  showCart
+                    ? `text-3xl text-Black transition-all duration-300`
+                    : `text-3xl text-Dark-grayish-blue transition-all duration-300`
+                }
+              />
               {cartQuantity > 0 && (
                 <div className="absolute -top-4 -right-2 bg-Orange rounded-full w-7 h-7 text-White">
                   {cartQuantity}
                 </div>
               )}
             </button>
-            <img src={avatar} alt="user-img" className="user-avatar h-8" />
+            <img
+              src={avatar}
+              alt="user-img"
+              className="user-avatar h-8 md:h-10"
+            />
           </div>
           {/* cart item for desktop view */}
           {showCart && (
@@ -294,28 +304,28 @@ function App() {
                 src={product1_thumbnail}
                 alt=""
                 // id="thumbnail1"
-                className="img-thumbnail thumbnail1 cursor-pointer w-1/5 rounded-2xl"
+                className="img-thumbnail thumbnail1 cursor-pointer w-1/5 rounded-2xl border-4 border-Orange opacity-60"
                 onClick={thumbnail1}
               />
               <img
                 src={product2_thumbnail}
                 alt=""
                 // id="thumbnail2"
-                className="img-thumbnail thumbnail2 cursor-pointer w-1/5 rounded-2xl"
+                className="img-thumbnail thumbnail2 cursor-pointer w-1/5 rounded-2xl transition-all duration-300 hover:opacity-50"
                 onClick={thumbnail2}
               />
               <img
                 src={product3_thumbnail}
                 alt=""
                 // id="thumbnail3"
-                className="img-thumbnail thumbnail3 cursor-pointer w-1/5 rounded-2xl"
+                className="img-thumbnail thumbnail3 cursor-pointer w-1/5 rounded-2xl transition-all duration-300 hover:opacity-50"
                 onClick={thumbnail3}
               />
               <img
                 src={product4_thumbnail}
                 alt=""
                 // id="thumbnail4"
-                className="img-thumbnail thumbnail4 cursor-pointer w-1/5 rounded-2xl"
+                className="img-thumbnail thumbnail4 cursor-pointer w-1/5 rounded-2xl transition-all duration-300 hover:opacity-50"
                 onClick={thumbnail4}
               />
             </div>
@@ -403,28 +413,44 @@ function App() {
               src={product1_thumbnail}
               alt=""
               // id="thumbnail1"
-              className="img-thumbnail thumbnail1 cursor-pointer w-1/5 rounded-2xl"
+              className={
+                modalCount === 0
+                  ? `img-thumbnail thumbnail1 cursor-pointer w-1/5 rounded-2xl border-4 border-Orange opacity-50 `
+                  : `img-thumbnail thumbnail1 cursor-pointer w-1/5 rounded-2xl transition-all duration-300 hover:opacity-50`
+              }
               onClick={thumbnail1}
             />
             <img
               src={product2_thumbnail}
               alt=""
               // id="thumbnail2"
-              className="img-thumbnail thumbnail2 cursor-pointer w-1/5 rounded-2xl"
+              className={
+                modalCount === 1
+                  ? `img-thumbnail thumbnail1 cursor-pointer w-1/5 rounded-2xl border-4 border-Orange opacity-50`
+                  : `img-thumbnail thumbnail1 cursor-pointer w-1/5 rounded-2xl transition-all duration-300 hover:opacity-50`
+              }
               onClick={thumbnail2}
             />
             <img
               src={product3_thumbnail}
               alt=""
               // id="thumbnail3"
-              className="img-thumbnail thumbnail3 cursor-pointer w-1/5 rounded-2xl"
+              className={
+                modalCount === 2
+                  ? `img-thumbnail thumbnail1 cursor-pointer w-1/5 rounded-2xl border-4 border-Orange opacity-50`
+                  : `img-thumbnail thumbnail1 cursor-pointer w-1/5 rounded-2xl transition-all duration-300 hover:opacity-50`
+              }
               onClick={thumbnail3}
             />
             <img
               src={product4_thumbnail}
               alt=""
               // id="thumbnail4"
-              className="img-thumbnail thumbnail4 cursor-pointer w-1/5 rounded-2xl"
+              className={
+                modalCount === 3
+                  ? `img-thumbnail thumbnail1 cursor-pointer w-1/5 rounded-2xl border-4 border-Orange opacity-50`
+                  : `img-thumbnail thumbnail1 cursor-pointer w-1/5 rounded-2xl transition-all duration-300 hover:opacity-50`
+              }
               onClick={thumbnail4}
             />
           </div>
