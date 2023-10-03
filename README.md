@@ -19,4 +19,4 @@ Here are some features
 
 ## Production
 
-Product display: (Production Website Link) [https://production-ecommerce.netlify.app/]
+Product display: [Production Website Link](https://production-ecommerce.netlify.app/)
