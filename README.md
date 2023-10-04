@@ -11,12 +11,12 @@ This is a challenge on [Frontend mentor](https://www.frontendmentor.io) on an E-
 
 ## Roadmap
 
-Here are some fratures
+Here are some features
 
 - Checkout different images of the product
 - Add any quantity of the product to your cart
-- Check you cart for the items in it
+- Check your cart for the items in it
 
 ## Production
 
-Production Website Link [https://production-ecommerce.netlify.app/]
+Product display: [Production Website Link](https://production-ecommerce.netlify.app/)
