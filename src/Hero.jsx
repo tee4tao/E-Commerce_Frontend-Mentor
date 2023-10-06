@@ -30,8 +30,8 @@ const Hero = ({
   thumbnail2,
   thumbnail3,
   thumbnail4,
+  Arr,
 }) => {
-  const Arr = [product1, product2, product3, product4];
   const nextClick = () => {
     count++;
     setCount(count);
@@ -96,11 +96,17 @@ const Hero = ({
                           </span>
                         </div>
                       </div>
-                      <button onClick={() => setCartQuantity(0)}>
+                      <button
+                        aria-label="delete cart items"
+                        onClick={() => setCartQuantity(0)}
+                      >
                         <FaTrashAlt className="text-2xl text-Grayish-blue" />
                       </button>
                     </div>
-                    <button className="mt-4 block mx-auto bg-Orange text-White w-3/4 h-12 p-1 rounded-lg">
+                    <button
+                      aria-label="checkout cart items"
+                      className="mt-4 block mx-auto bg-Orange text-White w-3/4 h-12 p-1 rounded-lg"
+                    >
                       Checkout
                     </button>
                   </div>
@@ -108,13 +114,21 @@ const Hero = ({
               </div>
             )}
             {!showCart && (
-              <button className="md:hidden" onClick={prevClick}>
+              <button
+                aria-label="previous image"
+                className="md:hidden"
+                onClick={prevClick}
+              >
                 <FaAngleLeft className="absolute top-1/2 left-4 bg-white rounded-full text-3xl" />
               </button>
             )}
             {/*only display the nav-btn when the cart items is not displayed*/}
             {!showCart && (
-              <button className="md:hidden" onClick={nextClick}>
+              <button
+                aria-label="next image"
+                className="md:hidden"
+                onClick={nextClick}
+              >
                 <FaAngleRight className="absolute top-1/2 right-4 bg-white rounded-full text-3xl" />
               </button>
             )}
@@ -179,6 +193,7 @@ const Hero = ({
           <div className="cart-quantity_container w-11/12 flex flex-col items-center md:flex-row mt-4 md:space-x-2">
             <div className="quantity-container w-3/4 h-12 p-2 rounded-lg flex justify-between bg-Light-grayish-blue mb-2 md:w-2/5">
               <button
+                aria-label="decrease item quantity"
                 className="decrease-quantity text-Orange"
                 onClick={decreaseQuantity}
               >
@@ -186,6 +201,7 @@ const Hero = ({
               </button>
               <div className="text-2xl">{productQuantity}</div>
               <button
+                aria-label="increase item quantity"
                 className="increase-quantity text-Orange"
                 onClick={() => setProductQuantity(productQuantity + 1)}
               >
@@ -193,6 +209,7 @@ const Hero = ({
               </button>
             </div>
             <button
+              aria-label="add item to cart"
               className="AddToCart-container w-3/4 h-12 p-2 rounded-lg flex justify-center items-center space-x-5 bg-Orange mb-2 md:w-6/12 text-White text-xl"
               onClick={() => setCartQuantity(productQuantity)}
             >

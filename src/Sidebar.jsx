@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  FaBars,
-  FaAngleRight,
-  FaAngleLeft,
-  FaTimes,
-  FaPlus,
-  FaMinus,
-  FaTrashAlt,
-} from "react-icons/fa";
-import { BsCart3 } from "react-icons/bs";
+import { FaTimes } from "react-icons/fa";
 
 const Sidebar = ({ showSide, setShowSide }) => {
   return (
@@ -20,7 +11,7 @@ const Sidebar = ({ showSide, setShowSide }) => {
       }
     >
       <div className="w-1/2 h-full bg-White relative">
-        <button onClick={() => setShowSide(false)}>
+        <button aria-label="close sidebar" onClick={() => setShowSide(false)}>
           <FaTimes className="absolute left-8 text-2xl text-Grayish-blue hover:text-Black transition-all ease-linear duration-300" />
         </button>
         <ul className="sidebar-links mt-16 ml-8 space-y-4">

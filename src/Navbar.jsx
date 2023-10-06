@@ -17,6 +17,7 @@ const Navbar = ({
       <div className="container relative flex justify-around items-center h-20 max-w-full md:w-3/4 xl:w-3/5 md:justify-between md:mt-4 md:mb-6">
         <div className="flex space-x-4 items-center">
           <button
+            aria-label="open sidebar"
             className="toggle-btn md:hidden"
             onClick={() => setShowSide(true)}
           >
@@ -44,7 +45,11 @@ const Navbar = ({
           </div>
         </div>
         <div className="flex space-x-3 lg:space-x-6 items-center">
-          <button className="relative" onClick={() => setShowCart(!showCart)}>
+          <button
+            className="relative"
+            aria-label="open and close cart"
+            onClick={() => setShowCart(!showCart)}
+          >
             <BsCart3
               className={
                 showCart
@@ -93,7 +98,10 @@ const Navbar = ({
                       </span>
                     </div>
                   </div>
-                  <button onClick={() => setCartQuantity(0)}>
+                  <button
+                    aria-label="delete cart items"
+                    onClick={() => setCartQuantity(0)}
+                  >
                     <FaTrashAlt className="text-2xl text-Grayish-blue" />
                   </button>
                 </div>
